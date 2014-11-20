@@ -1,9 +1,9 @@
 <?php
 
-namespace PhalconRunner;
+namespace SlimRunner;
 
-use PhalconRunner\FactoryLoader as FactoryLoader;
-use PhalconRunner\AppConfig as AppConfig;
+use SlimRunner\FactoryLoader as FactoryLoader;
+use SlimRunner\AppConfig as AppConfig;
 
 abstract class SlimRunner
 {
