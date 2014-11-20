@@ -50,7 +50,7 @@ abstract class SlimRunner
         AppConfig::load($configFile);
         
         if (!is_writable($writableFolder)) {
-            throw new Exception('Folder is not writable');
+            throw new \Exception('Folder is not writable');
         }
         
         date_default_timezone_set(AppConfig::get('datetime', 'timezone', 'GMT'));
@@ -150,7 +150,7 @@ abstract class SlimRunner
     protected function registerRoutes($routes)
     {
         if ($this->routes !== null) {
-            throw new Exception('Routes have already been registered');
+            throw new \Exception('Routes have already been registered');
         }
         
         $this->routes = $routes;
