@@ -6,7 +6,7 @@
  *
  * Basically a way of offsetting code from AppRun into controllers
  */
-abstract class SlimRunController extends SlimRunner
+abstract class SlimRunController extends \SlimRunner\SlimRunner
 {
     
     private $slimRunner;
