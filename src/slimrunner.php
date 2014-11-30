@@ -40,6 +40,11 @@ abstract class SlimRunner
     private $layoutTemplate;
     
     /**
+     * @var obj $db Internal Reference to the database object
+     */
+    protected $db;
+    
+    /**
      * Constructor
      *
      * @param string $configFile Path to .ini config file
@@ -127,9 +132,20 @@ abstract class SlimRunner
         $className = $controller.'Controller';
         
         $class = new $className($this);
+        
         $class->init();
         
         return $class;
+    }
+    
+    /**
+     * Method to set a database object which can be passed to the controller
+     *
+     * @param obj $db
+     */
+    protected function setDatabaseObj($db)
+    {
+        $this->db = $db;
     }
     
     
