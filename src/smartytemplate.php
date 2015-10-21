@@ -114,6 +114,15 @@ class SmartyTemplate extends Template implements TemplateInterface
         $this->sm->registerPlugin($type, $name, $callback);
     }
     
+    /**
+     * Method to clear the smarty template cache
+     * @return boolean
+     */
+    public function clearAllCache()
+    {
+        return $this->sm->clearAllCache();
+    }
+    
 }
 
 
