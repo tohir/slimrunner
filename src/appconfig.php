@@ -35,7 +35,7 @@ class AppConfig
             $sectionValues = static::$config->$section;
             return (array)$sectionValues;
         } else {
-            throw new Exception('Config Section not found');
+            throw new \Exception('Config Section not found');
         }
     }
     
@@ -46,7 +46,7 @@ class AppConfig
     public static function load($configIniFile)
     {
         if (!empty(static::$config)) {
-            throw new Exception('Config has already been loaded');
+            throw new \Exception('Config has already been loaded');
         }
         
         $values = parse_ini_file($configIniFile, TRUE);
