@@ -52,7 +52,7 @@ class AppConfig
         $values = parse_ini_file($configIniFile, TRUE);
         
         if ($values == FALSE) {
-            throw new Exception('Unable to parse config file');
+            throw new \Exception('Unable to parse config file');
         } else {
             static::$config = json_decode(json_encode($values), FALSE);
         }
