@@ -45,6 +45,11 @@ abstract class SlimRunner
     protected $db;
     
     /**
+     * @var array $objectsForController Objects to load in Controllers
+     */
+    protected $objectsForController = array('db', 'template');
+    
+    /**
      * Constructor
      *
      * @param string $configFile Path to .ini config file
@@ -136,6 +141,14 @@ abstract class SlimRunner
         $class->init();
         
         return $class;
+    }
+    
+    /**
+     * Method to expose the list of objects that need to be loaded in the controller
+     */
+    public function getObjectsForController()
+    {
+        return $this->objectsForController;
     }
     
     /**

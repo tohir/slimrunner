@@ -14,8 +14,11 @@ abstract class SlimRunController extends \SlimRunner\SlimRunner
     public function __construct(&$slimRunner)
     {
         $this->slimRunner = $slimRunner;
-        $this->template = $this->slimRunner->template;
-        $this->db = $this->slimRunner->db;
+        
+        foreach ($this->getObjectsForController() as $obj)
+        {
+            $this->$obj = $this->slimRunner->$obj;
+        }
     }
     
     protected function init() {}
