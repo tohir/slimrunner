@@ -114,6 +114,16 @@ abstract class SlimRunController extends \SlimRunner\SlimRunner
     }
     
     /**
+     * Method to get a value via php://input
+     * @param string $name Name of the item
+     * @param mixed $default Default value to be used if not set
+     */
+    protected function inputValue($name, $default='')
+    {
+        return $this->slimRunner->inputValue($name, $default);
+    }
+    
+    /**
      * Method to get a $_SESSION Value
      * @param string $name Name of the item
      * @param mixed $default Default value to be used if not set

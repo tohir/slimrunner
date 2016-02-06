@@ -50,6 +50,12 @@ abstract class SlimRunner
     protected $objectsForController = array('db', 'template');
     
     /**
+     * @var mixed $inputValues Values passed via php://input for PUT, PATCH
+     * This variable starts off as boolean, gets converted to array
+     */
+    private $inputValues = FALSE;
+    
+    /**
      * Constructor
      *
      * @param string $configFile Path to .ini config file
@@ -102,6 +108,7 @@ abstract class SlimRunner
         $request = $this->slim->request();
         $response = $this->slim->response();
         
+        // Check whether route is using a controller or the current class
         if (preg_match('/\A(?:[A-Z]\w+::[A-Z|a-z|_]\w+)\Z/', $method_name)) {
             $parts = explode('::', $method_name);
             
@@ -124,6 +131,7 @@ abstract class SlimRunner
         if (!empty($this->pageTemplate)) {
             $response = $this->template->loadTemplate($this->pageTemplate, array('content'=>$response));
         }
+        
         echo $response;
     }
     
@@ -334,6 +342,50 @@ abstract class SlimRunner
             return $_POST[$name];
         } else {
             return $default;
+        }
+    }
+    
+    /**
+     * Method to get a value via php://input
+     * @param string $name Name of the item
+     * @param mixed $default Default value to be used if not set
+     */
+    protected function inputValue($name, $default='')
+    {
+        if ($this->inputValues === FALSE) {
+            $this->parseInputValues();
+        }
+        
+        if (isset($this->inputValues[$name])) {
+            return $this->inputValues[$name];
+        } else {
+            return $default;
+        }
+    }
+    
+    /**
+     * Method to parse php://input and store in array
+     */
+    private function parseInputValues()
+    {
+        parse_str(file_get_contents("php://input"),$data);
+
+        $data = reset($data);
+        
+        $data = preg_split('/------WebKitFormBoundary.*\nContent-Disposition: form-data; name=/', $data);
+        
+        $this->inputValues = array();
+        
+        foreach($data as $input)
+        {
+            // get key
+            preg_match('/"([^"]+)"/', $input, $key);
+            
+            // get data
+            $input = preg_replace('/------WebKitFormBoundary.*--/', '', $input);
+            
+            // Store to an array
+            $this->inputValues[$key[1]] = trim(str_replace($key[0], '', $input));
         }
     }
     
