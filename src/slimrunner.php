@@ -372,7 +372,7 @@ abstract class SlimRunner
 
         $data = reset($data);
         
-        $data = preg_split('/------WebKitFormBoundary.*\nContent-Disposition: form-data; name=/', $data);
+        $data = preg_split('/------.*\nContent-Disposition: form-data; name=/', $data);
         
         $this->inputValues = array();
         
@@ -382,7 +382,7 @@ abstract class SlimRunner
             preg_match('/"([^"]+)"/', $input, $key);
             
             // get data
-            $input = preg_replace('/------WebKitFormBoundary.*--/', '', $input);
+            $input = preg_replace('/------.*--/', '', $input);
             
             // Store to an array
             $this->inputValues[$key[1]] = trim(str_replace($key[0], '', $input));
