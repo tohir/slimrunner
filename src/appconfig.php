@@ -41,7 +41,7 @@ class AppConfig
     
     /**
      * Method to load Config Values from a .ini file
-     * @param string $configIniFile Path to .ini config file
+     * @param string|array $configIniFile Path(s) to .ini config file
      */
     public static function load($configIniFile)
     {
@@ -49,14 +49,41 @@ class AppConfig
             throw new \Exception('Config has already been loaded');
         }
         
+        if (is_array($configIniFile)) {
+            static::$config = static::loadIniFiles($configIniFile);
+            
+        } else {
+            static::$config = static::loadIniFile($configIniFile);
+        }
+    }
+    
+    protected static function loadIniFile($configIniFile)
+    {
         $values = parse_ini_file($configIniFile, TRUE);
         
         if ($values == FALSE) {
             throw new \Exception('Unable to parse config file');
         } else {
-            static::$config = json_decode(json_encode($values), FALSE);
+            return json_decode(json_encode($values), FALSE);
         }
     }
     
+    protected static function loadIniFiles($configIniFiles)
+    {
+        $config = [];
+        
+        foreach ($configIniFiles as $file)
+        {
+            $values = parse_ini_file($file, TRUE);
+            
+            if ($values == FALSE) {
+                throw new \Exception('Unable to parse config file');
+            }
+            
+            $config = array_replace_recursive($config, $values);
+        }
+        
+        return json_decode(json_encode($config), FALSE);
+    }
     
 }
