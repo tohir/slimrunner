@@ -123,6 +123,14 @@ class SmartyTemplate extends Template implements TemplateInterface
         return $this->sm->clearAllCache();
     }
     
+    /**
+     * Method to load a Smarty Filter
+     */
+    public function loadFilter($type, $name)
+    {
+        $this->sm->loadFilter($type, $name);
+    }
+    
 }
 
 
