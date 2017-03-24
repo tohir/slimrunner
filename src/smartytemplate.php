@@ -131,6 +131,14 @@ class SmartyTemplate extends Template implements TemplateInterface
         $this->sm->loadFilter($type, $name);
     }
     
+    /**
+     * Method to register a Smarty Filter
+     */
+    public function registerFilter($type, $callback, $name=null)
+    {
+        $this->sm->registerFilter($type, $callback, $name);
+    }
+    
 }
 
 
