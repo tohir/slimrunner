@@ -34,6 +34,7 @@ class SmartyTemplate extends Template implements TemplateInterface
         $this->sm->setCompileDir($writableFolder.AppConfig::get('smarty', 'compileDir'));
         $this->sm->setConfigDir($writableFolder.AppConfig::get('smarty', 'configDir'));
         $this->sm->setCacheDir($writableFolder.AppConfig::get('smarty', 'cacheDir'));
+        $this->sm->setCompileCheck(AppConfig::get('smarty', 'compileCheck', true));
         
         // This prevents undefined index errors if the variable is not defined
         $this->sm->error_reporting = E_ALL & ~E_NOTICE;
