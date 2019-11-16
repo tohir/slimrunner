@@ -44,7 +44,7 @@ class AppConfig
      */
     public static function configLoaded()
     {
-        return !empty(static::$config));
+        return !empty(static::$config);
     }
     
     /**
