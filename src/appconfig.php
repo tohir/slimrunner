@@ -40,6 +40,14 @@ class AppConfig
     }
     
     /**
+     * Method to check if Config has been loaded
+     */
+    public static function configLoaded()
+    {
+        return !empty(static::$config));
+    }
+    
+    /**
      * Method to load Config Values from a .ini file
      * @param string|array $configIniFile Path(s) to .ini config file
      */
